@@ -1,3 +1,5 @@
+import type {ObjectId} from 'mongoose';
+
 export interface UserSchema{
     name: String;
     username: String;
@@ -5,4 +7,5 @@ export interface UserSchema{
     providerId: String;
     image: String;
     notificationToken?: Array<String>;
+    pinnedChats: Array<ObjectId>;
 }

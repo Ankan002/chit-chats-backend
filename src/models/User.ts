@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import type { Schema } from 'mongoose'
+import { Schema } from 'mongoose'
 import { UserSchema } from '../@types/UserSchema';
 
 
@@ -33,6 +33,11 @@ const userSchema: Schema = new mongoose.Schema<UserSchema>({
     notificationToken: {
         type: [String],
         default: []
+    },
+    pinnedChats: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Chat',
+        default: [],
     }
 }, { timestamps: true });
 
