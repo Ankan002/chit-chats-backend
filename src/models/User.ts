@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { Schema } from 'mongoose'
-import { UserSchema } from '../@types/UserSchema';
+import { UserSchema } from '../types/schema/UserSchema';
 
 
 const userSchema: Schema = new mongoose.Schema<UserSchema>({
@@ -13,7 +13,7 @@ const userSchema: Schema = new mongoose.Schema<UserSchema>({
         required: true,
         unique: true,
         minlength: 3,
-        maxlength: 25,
+        maxlength: 40,
     },
     email: {
         type: String,

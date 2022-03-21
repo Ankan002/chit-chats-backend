@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import type { Schema } from 'mongoose';
-import { MessageSchema } from '../@types/MessageSchema';
+import { MessageSchema } from '../types/schema/MessageSchema';
 
 const messageSchema: Schema = new mongoose.Schema<MessageSchema>({
     sender: {
@@ -21,6 +21,8 @@ const messageSchema: Schema = new mongoose.Schema<MessageSchema>({
         type: String,
         trim: true
     }
+}, {
+    timestamps: true
 });
 
 const Message = mongoose.model<MessageSchema>('Message', messageSchema);

@@ -4,6 +4,9 @@ import {connectToDB} from './config/connectToDB';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
 
+import authRoutes from './routes/auth';
+import userRoutes from './routes/user';
+
 import type {Express, Request, Response} from 'express';
 
 dotenv.config();
@@ -25,6 +28,9 @@ export const RunServer = () => {
             message: 'Welcome to ChitChats API!!'
         });
     });
+
+    app.use('/api', authRoutes);
+    app.use('/api', userRoutes);
 
     app.listen(PORT, () => console.log(`App is running at port: ${PORT}`));
 }
