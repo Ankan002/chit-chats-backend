@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import type { Schema } from 'mongoose';
-import type { ChatSchema } from '../@types/ChatSchema';
+import type { ChatSchema } from '../types/schema/ChatSchema';
 
 const chatSchema: Schema = new mongoose.Schema<ChatSchema>({
     chatName: {

@@ -9,6 +9,8 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const connectToDB_1 = require("./config/connectToDB");
 const cors_1 = __importDefault(require("cors"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
+const auth_1 = __importDefault(require("./routes/auth"));
+const user_1 = __importDefault(require("./routes/user"));
 dotenv_1.default.config();
 const RunServer = () => {
     var _a;
@@ -25,6 +27,8 @@ const RunServer = () => {
             message: 'Welcome to ChitChats API!!'
         });
     });
+    app.use('/api', auth_1.default);
+    app.use('/api', user_1.default);
     app.listen(PORT, () => console.log(`App is running at port: ${PORT}`));
 };
 exports.RunServer = RunServer;

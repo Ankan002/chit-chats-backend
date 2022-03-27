@@ -14,7 +14,7 @@ const userSchema = new mongoose_1.default.Schema({
         required: true,
         unique: true,
         minlength: 3,
-        maxlength: 25,
+        maxlength: 40,
     },
     email: {
         type: String,
@@ -34,6 +34,11 @@ const userSchema = new mongoose_1.default.Schema({
     notificationToken: {
         type: [String],
         default: []
+    },
+    pinnedChats: {
+        type: [mongoose_1.default.Schema.Types.ObjectId],
+        ref: 'Chat',
+        default: [],
     }
 }, { timestamps: true });
 const User = mongoose_1.default.model('User', userSchema);
