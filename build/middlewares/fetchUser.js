@@ -27,7 +27,7 @@ const fetchUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function
     }
     try {
         const data = jsonwebtoken_1.default.verify(token, (_a = process.env.SECRET) !== null && _a !== void 0 ? _a : '');
-        req.user = data.id;
+        req.user = data.user;
         next();
     }
     catch (error) {

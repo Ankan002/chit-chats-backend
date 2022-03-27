@@ -13,7 +13,7 @@ export const login = async(req: Request, res: Response) => {
     if(!errors.isEmpty()){
         return res.status(400).json({
             success: false,
-            error: errors.array()
+            error: (errors.array())[1].msg
         });
     }
 
