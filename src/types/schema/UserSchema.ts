@@ -8,4 +8,5 @@ export interface UserSchema{
     image: String;
     notificationToken?: Array<String>;
     pinnedChats: Array<ObjectId>;
+    tagline: String;
 }

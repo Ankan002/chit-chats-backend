@@ -8,7 +8,7 @@ import User from '../models/User';
 dotenv.config();
 
 export const login = async(req: Request, res: Response) => {
-    const errors: Result = validationResult(req)
+    const errors: Result = validationResult(req);
 
     if(!errors.isEmpty()){
         return res.status(400).json({
