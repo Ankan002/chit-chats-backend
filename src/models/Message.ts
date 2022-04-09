@@ -20,6 +20,11 @@ const messageSchema: Schema = new mongoose.Schema<MessageSchema>({
     media: {
         type: String,
         trim: true
+    },
+    replyingTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Message',
+        required: false
     }
 }, {
     timestamps: true

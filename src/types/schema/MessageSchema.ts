@@ -5,4 +5,5 @@ export interface MessageSchema{
     content?: String;
     chat: ObjectId;
     media?: String;
+    replyingTo?: ObjectId;
 }
