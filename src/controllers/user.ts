@@ -38,7 +38,7 @@ export const updateUsername = async (req: Request, res: Response) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      error: errors.array()[0]?.msg,
+      error: (errors.array().length > 1) ? (errors.array())[1].msg : (errors.array())[0].msg
     });
   }
 
@@ -92,7 +92,7 @@ export const updateTagline = async(req: Request, res: Response) => {
     if(!errors.isEmpty()){
         return res.status(400).json({
             success: false,
-            error: errors.array()[0]?.msg,
+            error: (errors.array().length > 1) ? (errors.array())[1].msg : (errors.array())[0].msg
         });
     }
 
