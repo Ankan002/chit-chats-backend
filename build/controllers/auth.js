@@ -24,7 +24,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!errors.isEmpty()) {
         return res.status(400).json({
             success: false,
-            error: errors.array()
+            error: (errors.array().length > 1) ? (errors.array())[1].msg : (errors.array())[0].msg
         });
     }
     const { name, email, username, providerId, image } = req.body;
