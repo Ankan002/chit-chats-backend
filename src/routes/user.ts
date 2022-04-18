@@ -1,7 +1,7 @@
 import express from "express";
 import type { Router } from "express";
 import { fetchUser } from "../middlewares/fetchUser";
-import { getUser, updateUsername, updateTagline } from "../controllers/user";
+import { getUser, updateUsername, updateTagline, updateProfilePicture } from "../controllers/user";
 import { body } from "express-validator";
 
 const router: Router = express.Router();
@@ -20,5 +20,7 @@ router.put("/user/username", fetchUser, [
 router.put("/user/tagline", fetchUser, [
     body("tagline").trim().isLength({min:20, max:350}).withMessage("Name should be at least 20 and at most 350 characters long...")
 ], updateTagline);
+
+router.put("/user/profile-picture", fetchUser, updateProfilePicture)
 
 export default router;

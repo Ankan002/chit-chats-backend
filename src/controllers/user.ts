@@ -3,6 +3,14 @@ import User from "../models/User";
 import { isValidUsername } from "../helpers";
 import { validationResult, Result } from "express-validator";
 import { UsernameUpdateRequest, UserTaglineUpdateRequest } from "../types/User/UserUpdateRequest";
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLODINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 export const getUser = async (req: Request, res: Response) => {
   const userId = req.user;
@@ -117,4 +125,54 @@ export const updateTagline = async(req: Request, res: Response) => {
             error: "Internal Server Error!!"
         });
     }
+}
+
+export const updateProfilePicture = async (req: Request, res: Response) => {
+  const userId = req.user;
+  const image: any = req.files?.image;
+
+  try{
+    const cloudinaryUploadResponse = await cloudinary.uploader.upload(image?.tempFilePath, {
+      folder: "chit-chats/profile-image"
+    });
+
+    const user = await User.findById(userId).select("image");
+
+    const oldImage = user?.image;
+
+    const updatedData = {
+      image: cloudinaryUploadResponse.url
+    }
+
+    const newUser = await User.findByIdAndUpdate(userId, {$set: updatedData}, {new: true}).select("image");
+
+    fs.unlink(image.tempFilePath, err => console.log(err));
+
+    if(oldImage?.includes("lh3.googleusercontent.com")){
+      return res.status(200).json({
+        success: true,
+        data: {
+          image: newUser?.image
+        }
+      });
+    }
+
+    const deletionTarget = "chit-chats/profile-image/" + oldImage?.split("/")[oldImage.split("/").length - 1].split(".")[0];
+
+    await cloudinary.uploader.destroy(deletionTarget);
+
+    res.status(200).json({
+      success: true,
+        data: {
+          image: newUser?.image
+        }
+    });
+  }
+  catch(error){
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error"
+    });
+  }
 }

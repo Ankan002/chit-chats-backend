@@ -39,6 +39,12 @@ const userSchema = new mongoose_1.default.Schema({
         type: [mongoose_1.default.Schema.Types.ObjectId],
         ref: 'Chat',
         default: [],
+    },
+    tagline: {
+        type: String,
+        required: false,
+        maxlength: 350,
+        default: "Hey! I am using Chit Chats"
     }
 }, { timestamps: true });
 const User = mongoose_1.default.model('User', userSchema);
