@@ -38,6 +38,35 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
+export const searchUser = async (req: Request, res: Response) => {
+  const userId = req.user;
+  const keyword = req.query.keyword ? {
+    $or: [
+      {name: {$regex: req.query.keyword, $options: "i"}},
+      {email: {$regex: req.query.keyword, $options: "i"}},
+      {username: {$regex: req.query.keyword, $options: "i"}},
+    ]
+  } : {};
+
+  try{
+    const users = await User.find(keyword).find({_id: {$ne: userId}}).select("-notificationToken").select("-pinnedChats").select("-providerId");
+
+    res.status(200).json({
+      success: true,
+      data: {
+        users
+      }
+    });
+  }
+  catch(error){
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: "Internal Server Error" 
+    });
+  }
+}
+
 export const updateUsername = async (req: Request, res: Response) => {
   const userId = req.user;
 
