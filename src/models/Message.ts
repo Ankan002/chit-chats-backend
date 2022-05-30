@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose';
 import type { Schema } from 'mongoose';
 import { MessageSchema } from '../types/schema/MessageSchema';
@@ -19,7 +20,8 @@ const messageSchema: Schema = new mongoose.Schema<MessageSchema>({
     },
     media: {
         type: String,
-        trim: true
+        trim: true,
+        required: false
     },
     replyingTo: {
         type: mongoose.Schema.Types.ObjectId,

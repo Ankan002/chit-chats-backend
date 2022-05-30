@@ -6,9 +6,9 @@ const chatSchema: Schema = new mongoose.Schema<ChatSchema>({
     chatName: {
         type: String,
         trim: true,
-        required: true,
         minlength: 3,
-        maxlength: 30
+        maxlength: 30,
+        required: true
     },
     isGroupChat: {
         type: Boolean,
@@ -26,8 +26,7 @@ const chatSchema: Schema = new mongoose.Schema<ChatSchema>({
     },
     groupAdmin: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        ref: 'User'
     },
     groupImage: {
         type: String,
