@@ -27,7 +27,7 @@ export const sendMessage = async(req: Request, res: Response) => {
             chat: chatId
         });
 
-        newMessage = await newMessage.populate("sender", "username image name");
+        newMessage = await newMessage.populate("sender", "username image name _id");
         newMessage = await newMessage.populate("chat");
 
         let message = await User.populate(newMessage, {
@@ -93,7 +93,7 @@ export const sendMediaMessage = async(req: Request, res: Response) => {
             sender: userId
         });
 
-        newMessage = await newMessage.populate("sender", "username image name");
+        newMessage = await newMessage.populate("sender", "username image name _id");
         newMessage = await newMessage.populate("chat");
 
         let message = await User.populate(newMessage, {
@@ -136,7 +136,7 @@ export const getMessages = async(req: Request, res: Response) => {
     //TODO: If required populate it with chatsId `.populate("chat")`
 
     try{
-        let chats = await Message.find({chat: chatId}).sort("-createdAt").limit(numberOfMessages).skip(numberOfMessages * (pageNumber - 1)).populate("sender", "username name image");
+        let chats = await Message.find({chat: chatId}).sort("-createdAt").limit(numberOfMessages).skip(numberOfMessages * (pageNumber - 1)).populate("sender", "username name image _id");
 
         res.status(200).json({
             success: true,
