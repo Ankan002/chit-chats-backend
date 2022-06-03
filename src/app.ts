@@ -7,6 +7,7 @@ import fileUpload from 'express-fileupload';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/user';
 import chatRoutes from './routes/chat';
+import messageRoutes from './routes/message';
 
 import type {Express, Request, Response} from 'express';
 
@@ -33,6 +34,7 @@ export const RunServer = () => {
     app.use('/api', authRoutes);
     app.use('/api', userRoutes);
     app.use('/api', chatRoutes);
+    app.use('/api', messageRoutes);
 
     app.listen(PORT, () => console.log(`App is running at port: ${PORT}`));
 }
