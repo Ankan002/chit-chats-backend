@@ -8,9 +8,9 @@ const chatSchema = new mongoose_1.default.Schema({
     chatName: {
         type: String,
         trim: true,
-        required: true,
         minlength: 3,
-        maxlength: 30
+        maxlength: 30,
+        required: true
     },
     isGroupChat: {
         type: Boolean,
@@ -28,8 +28,7 @@ const chatSchema = new mongoose_1.default.Schema({
     },
     groupAdmin: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        ref: 'User'
     },
     groupImage: {
         type: String,

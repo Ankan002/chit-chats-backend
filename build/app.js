@@ -11,6 +11,9 @@ const cors_1 = __importDefault(require("cors"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const user_1 = __importDefault(require("./routes/user"));
+const chat_1 = __importDefault(require("./routes/chat"));
+const message_1 = __importDefault(require("./routes/message"));
+const socket_1 = require("./socket/socket");
 dotenv_1.default.config();
 const RunServer = () => {
     var _a;
@@ -29,6 +32,13 @@ const RunServer = () => {
     });
     app.use('/api', auth_1.default);
     app.use('/api', user_1.default);
-    app.listen(PORT, () => console.log(`App is running at port: ${PORT}`));
+    app.use('/api', chat_1.default);
+    app.use('/api', message_1.default);
+    const server = app.listen(PORT, () => console.log(`App is running at port: ${PORT}`));
+    const io = require("socket.io")(server, {
+        pingTimeout: 60000,
+        cors: "*"
+    });
+    (0, socket_1.socket)(io);
 };
 exports.RunServer = RunServer;
