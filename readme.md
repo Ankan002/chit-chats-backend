@@ -40,7 +40,7 @@ An API to manage all workings of the main Chit Chats app.
 
 - ``Note``: If there is a ``ts-node`` error then again run ```npm i -g ts-node```
 
-That's you will be ready to test the app locally. Once app starts successfully you will be able to see the following in your terminal:
+That's it you are ready to test the app locally. Once app starts successfully you will be able to see the following in your terminal:
 
 ```curl
 App is running at port ${PORT}
