@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProfilePicture = exports.updateTagline = exports.updateUsername = exports.getUser = void 0;
+exports.updateProfilePicture = exports.updateTagline = exports.updateUsername = exports.searchUser = exports.getUser = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const helpers_1 = require("../helpers");
 const express_validator_1 = require("express-validator");
@@ -47,6 +47,31 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUser = getUser;
+const searchUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.user;
+    const keyword = req.query.keyword ? {
+        $or: [
+            { username: { $regex: req.query.keyword, $options: "i" } },
+        ]
+    } : {};
+    try {
+        const users = yield User_1.default.find(keyword).find({ _id: { $ne: userId } }).select("-notificationToken").select("-pinnedChats").select("-providerId");
+        res.status(200).json({
+            success: true,
+            data: {
+                users
+            }
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            error: "Internal Server Error"
+        });
+    }
+});
+exports.searchUser = searchUser;
 const updateUsername = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.user;
     const errors = (0, express_validator_1.validationResult)(req);

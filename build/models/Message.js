@@ -21,7 +21,8 @@ const messageSchema = new mongoose_1.default.Schema({
     },
     media: {
         type: String,
-        trim: true
+        trim: true,
+        required: false
     },
     replyingTo: {
         type: mongoose_1.default.Schema.Types.ObjectId,
