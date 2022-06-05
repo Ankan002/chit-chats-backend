@@ -51,8 +51,6 @@ const searchUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const userId = req.user;
     const keyword = req.query.keyword ? {
         $or: [
-            { name: { $regex: req.query.keyword, $options: "i" } },
-            { email: { $regex: req.query.keyword, $options: "i" } },
             { username: { $regex: req.query.keyword, $options: "i" } },
         ]
     } : {};
